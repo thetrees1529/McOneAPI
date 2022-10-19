@@ -1,0 +1,18 @@
+{
+    "name": "musclecars",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "server": "node server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "axios": "^0.27.2",
+      "cors": "^2.8.5",
+      "express": "^4.17.3",
+      "nan": "^2.15.0"
+    }
+  }
+  
