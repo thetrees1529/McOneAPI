@@ -1,7 +1,3 @@
-const path = require('path');
-const fs = require('fs');
-const fsPromises = fs.promises;
-
 //const metadata = require('../data/metadata.json');
 
 const muscleCarsRoutes = (app) => {
