@@ -26,7 +26,7 @@ muscleCarsRoutes.get('/muscleCar', async function (req, res) {
   let meta
 
   try {
-    meta = JSON.parse(await fs.readFile(`./meta/${id}.json`, "utf8"))
+    meta = JSON.parse(await fs.readFile(`./meta/AHMC_${id}.json`, "utf8"))
   } catch {
     return res.json(genericResponse(id))
   }
