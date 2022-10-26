@@ -1,51 +1,31 @@
 //const metadata = require('../data/metadata.json');
+const muscleCarsRoutes = require("express").Router()
+const fs = require("fs").promises
 
-const muscleCarsRoutes = (app) => {
-  /*async function getMetadataFromDatabase(id) {
-    let data = {
-      tokenId: -1
-    };
+muscleCarsRoutes.get('/muscleCar', async function (req, res, next) {
 
-    for (let i = 0; i < metadata.length; i++) {
-      if (metadata[i].tokenId == id) {
-        return metadata[i];
+  const id = req.query.id
+  let meta
+
+  try {
+    meta = JSON.parse(await fs.readFile(`./meta/${id}.json`, "utf8"))
+    console.log(meta)
+  } catch {
+    res.json(
+      {
+        "tokenId": id,
+        "name": `Keyfob #${id}`,
+        "description": "Avax Muscle Cars are 10,000 randomly-generated 3D NFTs with utility that allows you to play, race, win, and earn crypto.",
+        "external_url": "",
+        "image": "https://storageapi.fleek.co/c607c1dc-cdb6-453f-ab3e-9e0b1c8a1cd9-bucket/keyfob/keyfob.mp4",
+        "attributes": []
       }
-    }
-  
-    return data;
+    )
   }
 
-  app.get('/api/knight', async function (req, res, next) {
-    try {
-      const knightId = parseInt(req.query.id)
-      let id = parseInt(knightId);
-      let meta = await getMetadataFromDatabase(id);
+  res.json(meta)
 
-      return res.send(meta);
-    } catch (err) {
-      return res.status(500).send('Internal Error');
-    }
-  });*/
-
-  app.get('/muscleCar', async function (req, res, next) {
-    try {
-        const tokId = parseInt(req.query.id)
-        let id = parseInt(tokId);
-        let meta = {
-            "tokenId": id,
-            "name": `Keyfob #${id}`,
-            "description": "Avax Muscle Cars are 10,000 randomly-generated 3D NFTs with utility that allows you to play, race, win, and earn crypto.",
-            "external_url": "",
-            "image": "https://storageapi.fleek.co/c607c1dc-cdb6-453f-ab3e-9e0b1c8a1cd9-bucket/keyfob/keyfob.mp4",
-            "attributes": []
-        };
-
-        return res.send(meta);
-    } catch (err) {
-        return res.status(500).send('Internal Error');
-    }
 });
-};
 
 
 module.exports = muscleCarsRoutes;
