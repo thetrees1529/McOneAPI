@@ -19,7 +19,7 @@ muscleCarsRoutes.get('/muscleCar', async function (req, res) {
   try {
     await muscleContract.ownerOf(id)
   } catch {
-    return res.send("Muscle car not found.")
+    return res.status(404).send("Muscle car not found.")
   }
 
 
