@@ -14,7 +14,7 @@ const genericResponse = id => ({
 })
 
 const response = id => Object.assign(id, {
-  image: `https://meta.wenlambo.one/images/${id}.png`,
+  image: `https://meta.wenlambo.one/images/AHMC_${id}.png`,
   tokenId: id
 })
 
