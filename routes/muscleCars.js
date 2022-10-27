@@ -38,9 +38,7 @@ muscleCarsRoutes.get('/muscleCar', async function (req, res) {
   } catch {
     return res.json(genericResponse(id))
   }
-
-  const poop = response(id, meta)
-  console.log(poop)
+  
   res.json(response(id, meta))
 
 });
