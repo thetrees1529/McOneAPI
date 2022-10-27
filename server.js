@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use(cars);
+app.use(express.static("public"))
 
 app.listen(8000, async function () {
     console.log('API running on port 8000');
