@@ -16,7 +16,7 @@ const genericResponse = id => ({
 
 const response = (id, meta) => Object.assign(meta, 
   {
-    image: `https://metadata.mcverse.app/images/AHMC_${id}.png`,
+    image: `https://metadata.mcverse.app/images?id=${id}`,
     tokenId: id
   }
 )
