@@ -13,10 +13,12 @@ const genericResponse = id => ({
   "attributes": []
 })
 
-const response = id => Object.assign(id, {
-  image: `https://metadata.mcverse.app/images/AHMC_${id}.png`,
-  tokenId: id
-})
+const response = (id, meta) => Object.assign(meta, 
+  {
+    image: `https://metadata.mcverse.app/images/AHMC_${id}.png`,
+    tokenId: id
+  }
+)
 
 muscleCarsRoutes.get('/muscleCar', async function (req, res) {
 
@@ -37,7 +39,9 @@ muscleCarsRoutes.get('/muscleCar', async function (req, res) {
     return res.json(genericResponse(id))
   }
 
-  res.json(response(meta))
+  const poop = response(id, meta)
+  console.log(poop)
+  res.json(response(id, meta))
 
 });
 
