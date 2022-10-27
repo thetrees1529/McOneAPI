@@ -23,23 +23,27 @@ const response = (id, meta) => Object.assign(meta,
 
 const rename = id => `AHMC_${id}`
 
-muscleCarsRoutes.get("/images/:id", async (req,res) => {
+muscleCarsRoutes.use("/images/:id", async (req,res) => {
+
   const id = req.params.id
-  if(!exists(id)) return res.status(404).send("Image not found.")
+
+  if(!(await exists(id.replace("AHMC_", "").replace(".jpg", ""))))return res.status(404).send("Cannot get image for non existent muscle car.")
+
   try {
-    res.sendFile(path.resolve(`./images/${rename(id)}.jpg`))
+    res.sendFile(path.resolve(`./images/${id}`))
   } catch(e) {
     console.log(e)
     res.sendStatus(404)
   }
+
 })
 
 muscleCarsRoutes.get('/muscleCar', async function (req, res) {
 
   const id = req.query.id
 
-  if(!exists(id)) return res.status(404).send("Muscle car not found.")
-
+  if(!(await exists(id)))return res.status(404).send("Muscle car not found.")
+   
   let meta
 
   try {
@@ -57,7 +61,7 @@ async function exists(id) {
     await muscleContract.ownerOf(id)
   } catch {
     return false
-  }
+  } 
   return true
 }
 
