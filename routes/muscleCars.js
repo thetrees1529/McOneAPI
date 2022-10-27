@@ -13,6 +13,11 @@ const genericResponse = id => ({
   "attributes": []
 })
 
+const response = id => Object.assign(id, {
+  image: `https://meta.wenlambo.one/images/${id}.png`,
+  tokenId: id
+})
+
 muscleCarsRoutes.get('/muscleCar', async function (req, res) {
 
   const id = req.query.id
@@ -32,7 +37,7 @@ muscleCarsRoutes.get('/muscleCar', async function (req, res) {
     return res.json(genericResponse(id))
   }
 
-  res.json(meta)
+  res.json(response(meta))
 
 });
 
