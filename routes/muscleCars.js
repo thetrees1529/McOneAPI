@@ -1,5 +1,6 @@
 //const metadata = require('../data/metadata.json');
 const express = require("express")
+const path = require("path")
 const muscleCarsRoutes = express.Router()
 const fs = require("fs").promises
 const muscleContract = require("../contracts/muscleContract.js")
@@ -20,28 +21,45 @@ const response = (id, meta) => Object.assign(meta,
   }
 )
 
+const rename = id => `AHMC_${id}`
+
+muscleCarsRoutes.get("/images/:id", async (req,res) => {
+  const id = req.params.id
+  if(!exists(id)) return res.status(404).send("Image not found.")
+  try {
+    res.sendFile(path.resolve(`./images/${rename(id)}.jpg`))
+  } catch(e) {
+    console.log(e)
+    res.sendStatus(404)
+  }
+})
+
 muscleCarsRoutes.get('/muscleCar', async function (req, res) {
 
   const id = req.query.id
 
-  try {
-    await muscleContract.ownerOf(id)
-  } catch {
-    return res.status(404).send("Muscle car not found.")
-  }
-
+  if(!exists(id)) return res.status(404).send("Muscle car not found.")
 
   let meta
 
   try {
-    meta = JSON.parse(await fs.readFile(`./meta/AHMC_${id}.json`, "utf8"))
+    meta = JSON.parse(await fs.readFile(`./meta/${rename(id)}.json`, "utf8"))
   } catch {
     return res.json(genericResponse(id))
   }
-  
+
   res.json(response(id, meta))
 
 });
+
+async function exists(id) {
+  try {
+    await muscleContract.ownerOf(id)
+  } catch {
+    return false
+  }
+  return true
+}
 
 
 module.exports = muscleCarsRoutes;
