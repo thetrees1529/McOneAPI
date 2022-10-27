@@ -27,7 +27,7 @@ muscleCarsRoutes.use("/images/:id", async (req,res) => {
 
   const id = req.params.id
 
-  if(!(await exists(id.replace("AHMC_", "").replace(".jpg", ""))))return res.status(404).send("Cannot get image for non existent muscle car.")
+  if(!(await exists(id.replace("AHMC_", "").replace(".png", ""))))return res.status(404).send("Cannot get image for non existent muscle car.")
 
   try {
     res.sendFile(path.resolve(`images/${id}`))
